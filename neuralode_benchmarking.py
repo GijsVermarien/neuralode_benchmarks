@@ -379,7 +379,7 @@ def run_shard_mapped(
             if counter == 3:
                 if step == 50:
                     jax.profiler.start_trace(
-                        "./tmp/tensorboard/sharded", create_perfetto_trace=True
+                        "./tmp/tensorboard/shmap", create_perfetto_trace=True
                     )
                 elif step == 60:
                     jax.profiler.stop_trace()
@@ -495,7 +495,7 @@ if __name__ == "__main__":
     else:
         RuntimeError("Choose between 'shard' or 'pmap'")
     runtime = time.time() - start_time
-    with open("runs.txt", "a") as fh:
+    with open(f"runs_{args['device']}.txt", "a") as fh:
         fh.write(
             f"{args}, {runtime=}, {epoch_time=}, {compile_time=}, {final_loss=}" + "\n"
         )
